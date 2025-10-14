@@ -1,0 +1,122 @@
+:root{
+  /*  Main Colors 🎨 */
+    --primary: #6c63ff;     
+    --secondary: #3f37c9;   
+    --accent: #a29bfe;    
+
+  /*  Backgrounds 🌑 */
+  --background: #121212;  
+  --surface: #1e1e1e;    
+  --surface-alt: #2a2a2a; 
+
+  /*  Text ✨ */
+  --text: #f5f5f5;
+  --text-muted: #aaaaaa;
+
+  --border-Main: 25px;
+}
+
+*,*::after,*::before{
+    box-sizing: border-box; padding: 0; margin: 0;
+}
+
+body{
+    background-color: var(--background);
+    width: 100dvw;
+    height: 100dvh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#MainContainer {
+    position: relative;
+
+    background: var(--surface);
+    width: 50%;
+    height: 90%;
+    border-radius: var(--border-Main);
+
+    overflow: hidden;
+    align-items: center;
+}
+
+
+
+h1{
+    position: relative;
+    width: 100%;
+    height: 10%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+
+#info{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-alt);
+    border-radius: var(--border-Main);
+
+    flex-direction: column;
+}
+
+
+#info form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+
+    overflow: hidden;
+}
+
+#info form input{
+    width: 50%;
+    height: 5%;
+    border-radius: var(--border-Main);
+    padding: var(--border-Main);
+    outline: none;
+    transition: 1s;
+    font-size: large;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    font-weight: bolder;
+    color: var(--text);
+}
+
+#info form input:focus{
+    width: 70%;
+}
+
+#info form button{
+    width: 30%;
+    height: 5%;
+    border: none;
+    border-radius: var(--border-Main);
+    font-size: large;
+    background-color: var(--primary);
+    cursor: pointer;
+    color: var(--text);
+    transition: 1s;
+    font-weight: bolder;
+}
+
+#info form button:hover{
+    width: 40%;
+    background-color: var(--secondary);
+}
