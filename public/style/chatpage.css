@@ -92,7 +92,6 @@ body{
 #chatContainer div p{
     color: var(--text);
     font-size: large;
-    background-color: var(--secondary);
     padding: calc(var(--border-Main) / 2);
     border-radius: var(--border-Main);
 
@@ -100,10 +99,20 @@ body{
     max-width: 100%;
     height: fit-content;
 
-
-    align-self: flex-start;
-    
 }
+
+#sent{
+    background-color: var(--secondary);
+
+    align-self: flex-end;
+}
+
+#recieve{
+    background-color: var(--primary);
+
+    align-self: flex-start;  
+}
+
 
 
 #toUser{
