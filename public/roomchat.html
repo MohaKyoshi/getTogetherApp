@@ -5,21 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
 
+    <link rel="icon" type="image/png" href="./logo/logo.png">
+
     <link rel="stylesheet" href="./style/chatpage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="./Scripts/chat.js" defer></script>
 </head>
 <body>
-        <section id="MainContainer">
-            <header>
-                <h2 id="roomname">RoomName</h2>
-            </header>
+        <nav>
+            <div id="logo"><img src="./logo/logo.png" alt="logo"></div>
+        </nav>
+        <section id="ChatSection">
+            <header><h2 id="roomname">RoomName</h2></header>
+
             <section id="chatContainer">
-                <div>
-                </div>
+
             </section>
             <input type="text" placeholder="Message..." id="msgBox">
         </section>
+        <section id="videoSection">Not Availbale yet...</section>
+
 </body>
 </html>

@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GetTogether</title>
 
+    <link rel="icon" type="image/png" href="./logo/logo.png">
+
     <link rel="stylesheet" href="./style/mainPage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="./Scripts/mainMenu.js" defer></script>
+    
 
 </head>
 <body>
     <section id="MainContainer">
-        <h1 id="appName">GetTogether</h1>
+        <div id="appicon"><img src="./logo/logo.png" alt="logo"></div>
         <section id="info">
             <form id="myform">
+                <div id="typed-textContainer">
+                    <h2 id="typed-text"></h2>
+                </div>
+
                 <input type="text" placeholder="UserName" class="inputUser usernameInput">
                 <input type="text" placeholder="Room Name" class="inputUser roomnameInput">
                 <div id="buttonContainer">
@@ -25,6 +34,44 @@
             </form>
         </section>
     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+    VANTA.GLOBE({
+        el: document.body,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x6b8afd, 
+        backgroundColor: 0x202022 
+    })
+
+
+    const typed = new Typed("#typed-text", {
+        strings: [
+        "Welcome to GetTogether!",
+        "Create your own chat room 🗨️",
+        "Connect with friends instantly ⚡",
+        "Enjoy real-time messaging 💬",
+        "Watch Videos Together 📼"
+        ],
+        typeSpeed: 60,   
+        backSpeed: 30,  
+        backDelay: 1500, 
+        loop: true      
+    });
+        
+    </script>
+
+
+
     
 </body>
 </html>

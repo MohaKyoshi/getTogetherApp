@@ -1,7 +1,6 @@
 const port = 3000;
 
 const express = require("express");
-const fs = require("fs");
 const http = require("http");
 const path = require("path");
 
@@ -29,14 +28,6 @@ app.get("/", (req, res) =>{
 app.get("/chat", (req, res)=>{
     res.sendFile(path.join(__dirname,"public", "roomchat.html"))
 })
-
-app.post("/submit", (req, res) =>{
-         
-        res.status(200).json({ success: true });
-
-        console.log("New user Joined Server : " + JSON.stringify(req.body.username))
-    })
-
 
 
 
@@ -83,6 +74,12 @@ io.on("connection", async (socket) =>{
     socket.on("sendMessage", (msg) =>{
 
         socket.to(socket.data.roomname).emit("recieveMessage", socket.data.username, msg);
+
+    })
+
+    socket.on("sendNotification", (msg) =>{
+
+        socket.to(socket.data.roomname).emit("recieveNotification", socket.data.username, msg);
 
     })
 
