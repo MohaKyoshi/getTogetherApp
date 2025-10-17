@@ -2,19 +2,32 @@ const socket = io();
 
 const chatContainer = document.getElementById('chatContainer').firstElementChild
 
-const toUser = document.getElementById('toUser')
 const msgBox = document.getElementById('msgBox')
 
 const data = JSON.parse(sessionStorage.getItem('data'))
 
 
-socket.emit('register', data.username)
+socket.emit('register', data)
+
+socket.on("joined", _ =>{
+    createMsg(`You Joined ${data.roomname}`, "recieve")
+
+    socket.emit('sendMessage', `${data.username} Joined ${data.roomname}` )
+})
+
+socket.on("created", _ =>{
+    createMsg(`You Created ${data.roomname}`, "recieve")
+})
+
+
+document.getElementById("roomname").innerText = data.roomname
+
 
 
 
 msgBox.addEventListener('keydown', event =>{
     if (event.key == 'Enter'){
-        socket.emit('sendMessage', socket.id, msgBox.value, toUser.value)
+        socket.emit('sendMessage', msgBox.value)
         
         createMsg(msgBox.value, 'sent')
         msgBox.value = ''

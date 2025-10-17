@@ -7,15 +7,21 @@
 
     <link rel="stylesheet" href="./style/mainPage.css">
 
+    <script src="/socket.io/socket.io.js" defer></script>
     <script src="./Scripts/mainMenu.js" defer></script>
+
 </head>
 <body>
     <section id="MainContainer">
         <h1 id="appName">GetTogether</h1>
         <section id="info">
             <form id="myform">
-                <input type="text" placeholder="UserName" id="inputUser">
-                <button type="submit" id="submitBtn">Submit</button>
+                <input type="text" placeholder="UserName" class="inputUser usernameInput">
+                <input type="text" placeholder="Room Name" class="inputUser roomnameInput">
+                <div id="buttonContainer">
+                        <button type="button" class="btn createbtn">Create</button>
+                        <button type="button" class="btn joinbtn">Join</button>
+                </div>
             </form>
         </section>
     </section>

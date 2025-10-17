@@ -31,67 +31,62 @@ app.get("/chat", (req, res)=>{
 })
 
 app.post("/submit", (req, res) =>{
-    fs.readFile(path.join(__dirname, "dataBase.json"), (Rerr, data)=>{
-        if (Rerr) {console.log("There is error in Reading file and it is : " + Rerr)}
-        
-        let get_data = []
-        try {
-            get_data = JSON.parse(data);
-        } catch (parseError) {
-            console.log("There is error with parsing info" + parseError)
-        }
+         
+        res.status(200).json({ success: true });
 
-        const exist = get_data.some(u => u.username === req.body.username)
-
-
-        if (!exist){
-                get_data.push(req.body)
-                fs.writeFile(path.join(__dirname, "dataBase.json"), JSON.stringify(get_data, null, 2), err =>{ 
-                    if(err) console.log("There is Error in writing File and it is : " + err) 
-                    })
-
-                res.status(200).json({ success: true });
-
-                console.log("New user Joined Server : " + JSON.stringify(req.body.username))
-        }else if (exist) {
-            console.log ("User already exists : " + JSON.stringify(req.body.username))
-            res.status(200).json({ success: true });
-        }
-        
+        console.log("New user Joined Server : " + JSON.stringify(req.body.username))
     })
 
-})
+
+
+
 
 // This will take the new id we create by socket.io and change it later to username
 let registerdUser = {};
 
 io.on("connection", async (socket) =>{
     
-    // Register
-    socket.on('register', username =>{
+    // Create Room
+    socket.on('creating-room', user =>{
+        const rooms = io.sockets.adapter.rooms
 
-        registerdUser[username] = socket.id
+        const existRoom = rooms.get(user.roomname)
 
-        console.log(username + " Registered as : " + socket.id)
+        socket.emit("acceptCreating", existRoom)
     })
 
-    
+    // Join Room
+    socket.on('join-room', user =>{
+        const rooms = io.sockets.adapter.rooms
 
-    socket.on('sendMessage', (from, msg, to) =>{
+        const existRoom = rooms.get(user.roomname)
 
-        const targetSocketId = registerdUser[to]
+        socket.emit("acceptjoinning", existRoom)
+    })
 
-        console.log("from : " + targetSocketId, " Message : " + msg, "To : ", to)
-        
-        if (targetSocketId){
-            io.to(targetSocketId).emit('recieveMessage', from, msg);
 
-            console.log(registerdUser)
-        } else {
-            io.to(targetSocketId).emit('recieveMessage', from, 'UserOffline');
+    // Register
+    socket.on("register", data =>{
+        socket.join(data.roomname)
+
+        if (data.created == true){
+            socket.emit("created")
+        }else{
+            socket.emit("joined")
         }
 
-    } )
+        socket.data = data
+    })
+
+
+    // Send and recieve Message
+    socket.on("sendMessage", (msg) =>{
+
+        socket.to(socket.data.roomname).emit("recieveMessage", socket.data.username, msg);
+
+    })
+
+
 
     socket.on("disconnect", _=>{
         console.log("User Disconnected : " + socket.id)

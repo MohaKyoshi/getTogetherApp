@@ -1,38 +1,85 @@
-
-const form = document.getElementById("myform")
-const userInput = document.getElementById("inputUser")
+const socket = io()
 
 
-form.addEventListener("submit", async event =>{
-    event.preventDefault()
+const usernameInput = document.getElementsByClassName("usernameInput")[0]
+const roomnameInput = document.getElementsByClassName("roomnameInput")[0]
 
-    if (userInput.value != ""){
+const joinButton = document.getElementsByClassName('joinbtn')[0]
+const createButton = document.getElementsByClassName('createbtn')[0]
 
-        const user = {
-            username:userInput.value.trim().toLowerCase(),
-            temporary:''
+let user = {}
+
+
+createButton.addEventListener('click', event =>{
+        if (usernameInput.value != "" && roomnameInput.value != ""){
+
+        user = {
+            username:usernameInput.value.trim().toLowerCase(),
+            roomname:roomnameInput.value.trim().toLowerCase(),
+            created:true
         }
 
-        try {
-             await fetch("/submit",{
-                method:"POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                    body: JSON.stringify(user)
-                })
-
-                sessionStorage.setItem('data', JSON.stringify(user))
-
-                location.href = "/chat"
-
-
-        } catch (error) {
-            console.log("There is an Error on Fetch Sending messages : " + error)
-        }
-
-
-
+        
+        socket.emit("creating-room", user)
+    }else{
+        refused();
     }
+})
 
-});
+socket.on("acceptCreating", existRoom =>{
+    if (existRoom){
+        console.log(user.roomname + " exist")
+
+        refused();
+    }else {
+        // if room does not exist it will create one
+        sessionStorage.setItem("data",JSON.stringify(user))
+        location.href = "/chat"
+    }
+})
+
+
+
+joinButton.addEventListener('click', event =>{
+        if (usernameInput.value != "" && roomnameInput.value != ""){
+
+        user = {
+            username:usernameInput.value.trim().toLowerCase(),
+            roomname:roomnameInput.value.trim().toLowerCase(),
+            created:false
+        }
+
+        
+        socket.emit("join-room", user)
+    }else{
+        refused();
+    }
+})
+
+
+socket.on("acceptjoinning", existRoom =>{
+    if (existRoom){
+        // if room does not exist it will create one
+        sessionStorage.setItem("data",JSON.stringify(user))
+        location.href = "/chat"
+    }else {
+        refused();
+        console.log(user.roomname + " Does not exist")
+    }
+})
+
+
+
+
+
+
+
+function refused() {
+    usernameInput.classList.add("refused");
+    roomnameInput.classList.add("refused");
+
+    setTimeout(() => {
+    usernameInput.classList.remove("refused");
+    roomnameInput.classList.remove("refused");
+    }, 500);   
+}

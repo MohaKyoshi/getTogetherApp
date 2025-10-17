@@ -85,7 +85,7 @@ h1{
     overflow: hidden;
 }
 
-#info form input{
+.inputUser{
     width: 50%;
     height: 5%;
     border-radius: var(--border-Main);
@@ -99,13 +99,25 @@ h1{
     color: var(--text);
 }
 
-#info form input:focus{
+.inputUser:focus{
     width: 70%;
 }
 
-#info form button{
+#buttonContainer{
+    width: 100%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+
+    overflow: hidden;
+}
+
+
+.btn{
     width: 30%;
-    height: 5%;
+    height: 100%;
     border: none;
     border-radius: var(--border-Main);
     font-size: large;
@@ -116,7 +128,12 @@ h1{
     font-weight: bolder;
 }
 
-#info form button:hover{
+.btn:hover{
     width: 40%;
     background-color: var(--secondary);
+}
+
+.refused{
+    background-color: red;
+    transition: background-color 0.5s ease;
 }
