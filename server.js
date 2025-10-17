@@ -32,9 +32,6 @@ app.get("/chat", (req, res)=>{
 
 
 
-// This will take the new id we create by socket.io and change it later to username
-let registerdUser = {};
-
 io.on("connection", async (socket) =>{
     
     // Create Room
