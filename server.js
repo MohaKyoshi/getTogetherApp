@@ -80,6 +80,22 @@ io.on("connection", async (socket) =>{
 
     })
 
+    socket.on('changeYT-ID', playId =>{
+        socket.to(socket.data.roomname).emit("recieveChangeYT-ID", playId);
+    })
+
+    socket.on('videoPlay', _=>{
+        socket.to(socket.data.roomname).emit('recieveVideoPlay');
+    })
+
+    socket.on('videoPause', _=>{
+        socket.to(socket.data.roomname).emit('recieveVideoPause');
+    })
+
+    socket.on('videoSeek', time => {
+        socket.to(socket.data.roomname).emit('recieveVideoSeek', time);
+    });
+
 
 
     socket.on("disconnect", _=>{

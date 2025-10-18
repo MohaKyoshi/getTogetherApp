@@ -9,9 +9,6 @@
 
     <link rel="stylesheet" href="./style/chatpage.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="./Scripts/chat.js" defer></script>
 </head>
 <body>
         <nav>
@@ -25,12 +22,34 @@
             </section>
             <input type="text" placeholder="Message..." id="msgBox">
         </section>
-        <section id="videoSection">Not Availbale yet...</section>
+        <section id="videoSection">
+            <section id="youtubeContainer">
+                <div id="YTplayer"></div>
+                <div id="buttonYTContainer">
+                    <input type="url" placeholder="Put Youtube URL here">
+                    <button>Play</button>
+                </div>
+            </section>
 
+        </section>
+
+
+
+
+        <!-- 🔹 Scripts from internet -->
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- 🔹 Main Scripts -->
+        <script src="./Scripts/chat.js"></script>
+        <script src="./Scripts/player.js"></script>
+
+        <!-- 🔹 Small scripts -->
         <script>
-            logo.addEventListener("click", event =>{
-                location.href = "/"
-            })
+            const logo = document.getElementById("logo");
+            logo.addEventListener("click", () => {
+            location.href = "/";
+            });
         </script>
 
 </body>

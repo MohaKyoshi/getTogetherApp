@@ -50,9 +50,6 @@ function createMsg(message, type, from) {
     const msg = document.createElement('p');
 
 
-
-
-
     if (type == 'recieve'){
         const recieveBox = document.createElement('div')
 
